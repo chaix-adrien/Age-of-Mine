@@ -220,38 +220,26 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
        (void*)0            // array buffer offset
     );
 
-    // GLuint colorbuffer;
-    // glGenBuffers(1, &colorbuffer);
-    // glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_triangle_data), g_color_triangle_data, GL_STATIC_DRAW);
+    GLuint colorbuffer;
+    glGenBuffers(1, &colorbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_triangle_data), g_color_triangle_data, GL_STATIC_DRAW);
 
-    // glEnableVertexAttribArray(1);
-    // glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-    // glVertexAttribPointer(
-    //     1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-    //     3,                                // size
-    //     GL_FLOAT,                         // type
-    //     GL_FALSE,                         // normalized?
-    //     0,                                // stride
-    //     (void*)0                          // array buffer offset
-    // );
-    // Draw the triangle !
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+    glVertexAttribPointer(
+        1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+        3,                                // size
+        GL_FLOAT,                         // type
+        GL_FALSE,                         // normalized?
+        0,                                // stride
+        (void*)0                          // array buffer offset
+    );
+   // Draw the triangle !
     glDrawArrays(GL_TRIANGLES, 0, 3); // 12*3 indices starting at 0 -> 12 triangles -> 6 squares
     glDisableVertexAttribArray(0);
     
      glutSwapBuffers();
-
-    // glBegin(GL_POLYGON);
-    // glColor3f(1.0, 0.0, 0.0);
-    // glVertex2f(-0.5, -0.5);
-    // glColor3f(0.0, 1.0, 0.0);
-    // glVertex2f(0.5, -0.5);
-    // glColor3f(0.0, 0.0, 1.0);
-    // glVertex2f(0.5, 0.5);
-    // glColor3f(1.0, 1.0, 1.0);
-    // glVertex2f(-0.5, 0.5);
-    // glEnd();
-
     // /* On force l'affichage du resultat */
     // glFlush();
   }

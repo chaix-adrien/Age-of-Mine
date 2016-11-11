@@ -1,5 +1,6 @@
-#version 300 es        
+#version 300 es     
+in highp vec3 fragmentColor;   
 out highp vec3 color;
-void main(){
-color = vec3(1,0,0);
+void main() {
+color = fragmentColor;
 }
