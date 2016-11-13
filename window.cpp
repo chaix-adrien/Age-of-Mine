@@ -1,5 +1,11 @@
 #include "main.h"
 
+GLfloat texture_UV[4 * 2] = {
+    0, 0,
+    0, 1,
+    1, 1,
+    1, 0
+};
 
 int width = 1280;
 int height = 720;
@@ -10,16 +16,37 @@ float y = 5;
 float z = 5;
 
 Quad quad(0,0, 0, TOP);
-Cube cube;
+Cube cube(0, 0, 0, 2);
+Cube cube2(0, 1, 0, 1);
 
-int createAtributeBuffer(int attributeId, const GLfloat *data, unsigned long size) {
+GLuint loadBMP_custom(const char * imagepath) {
+    // Data read from the header of the BMP file
+    int width, height;
+    unsigned char* data =
+        SOIL_load_image(imagepath, &width, &height, 0, SOIL_LOAD_RGB);
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+
+    // "Bind" the newly created texture : all future texture functions will modify this texture
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    // Give the image to OpenGL
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    return textureID;
+}
+
+
+int createAtributeBuffer(int attributeId, const GLfloat *data, unsigned long size, int dim) {
     GLuint buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
     glVertexAttribPointer(
         attributeId,                      // attribute. No particular reason for 1, but must match the layout in the shader.
-        3,                                // size
+        dim,                                // size
         GL_FLOAT,                         // type
         GL_FALSE,                         // normalized?
         0,                                // stride
@@ -54,6 +81,7 @@ void affichage(void)
     projection();
 
     cube.display();
+    cube2.display();
 
     glutSwapBuffers();
     // /* On force l'affichage du resultat */
@@ -87,6 +115,13 @@ void clavier(unsigned char touche, int Ix, int Iy)
       }
 }
 
+GLuint loadTexture() {
+    loadBMP_custom("grass.bmp");
+    loadBMP_custom("grass2.bmp");
+    GLuint UVID = createAtributeBuffer(1, texture_UV, sizeof(texture_UV), 2);
+    return UVID;
+}
+
 int main(int argc, char **argv)
 {
     /* Initialisation de glut et création de la fenêtre */
@@ -107,13 +142,14 @@ int main(int argc, char **argv)
     /* On passe à 2 pixels pour des raisons de clarté */
     glPointSize(1.0);
     /* enregistrement des fonctions de rappels */
-
-
+    GLuint UVID = loadTexture();
+    glEnableVertexAttribArray(UVID);
+    
     glutDisplayFunc(affichage);
     glutKeyboardFunc(clavier);
 
     /* entree dans la boucle principale de glut*/
     glutMainLoop();
-
+    glDisableVertexAttribArray(UVID);
     return 0;
 }

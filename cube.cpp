@@ -12,6 +12,10 @@
     }
   }
 
+  void Cube::setTexture(int id) {
+    m_textureId = id;
+  }
+
   void Cube::setPos(int x, int y, int z)
   {
     m_x = x;
@@ -47,6 +51,7 @@
   }
 
   void Cube::display(){
+    glBindTexture(GL_TEXTURE_2D, m_textureId);
     for (int i = 0; i < 6; i++) {
       m_quads[i].display();
     }
@@ -57,11 +62,12 @@
     this->setPos(0, 0, 0);
     this->_setQuadsSide();
     this->_setQuadsPos();
-
+    this->setTexture(1);
   }
 
-  Cube::Cube(int x = 0, int y = 0, int z = 0){
+  Cube::Cube(int x = 0, int y = 0, int z = 0, int texture = 1){
     this->setPos(x, y, z);
+    this->setTexture(texture);
     this->_setQuadsSide();
     this->_setQuadsPos();
   }

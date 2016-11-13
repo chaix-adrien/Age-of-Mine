@@ -4,7 +4,7 @@
 #include "opengl.h"
 
 GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
-int createAtributeBuffer(int attributeId, const GLfloat *data, unsigned long size);
+int createAtributeBuffer(int attributeId, const GLfloat *data, unsigned long size, int dim);
 
 #define X 0
 #define Y 1
@@ -49,8 +49,9 @@ class Quad {
 class Cube {
 	public:
 		Cube();
-		Cube(int x, int y, int z);
+		Cube(int x, int y, int z, int texture);
 		void display();
+		void setTexture(int id);
 		void setPos(int x, int y, int z);
 		int mooveX(int move);
 		int mooveY(int move);
@@ -64,6 +65,7 @@ class Cube {
 	  	int m_x;
 	  	int m_y;
 	  	int m_z;
+	  	int m_textureId;
 	  	Quad m_quads[6];
 };
 
