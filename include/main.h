@@ -41,6 +41,9 @@ class Quad {
 		int m_z;
 		side m_side;
 		GLfloat m_vertex[12];
+		unsigned char *m_texture;
+		int width;
+		int height;
 };
 
 class Cube {

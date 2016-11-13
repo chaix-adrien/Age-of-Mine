@@ -1,6 +1,7 @@
 #version 300 es     
-in highp vec3 fragmentColor;   
+in highp vec2 UV;
 out highp vec3 color;
+uniform sampler2D myTextureSampler;
 void main() {
-color = fragmentColor;
+	color = texture( myTextureSampler, UV ).rgb;
 }
