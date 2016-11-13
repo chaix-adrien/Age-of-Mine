@@ -69,5 +69,22 @@ class Cube {
 	  	Quad m_quads[6];
 };
 
+class Map {
+	public:
+		Map();
+		Map(int w, int h, int z);
+		int getW();
+		Cube *getCube(int x, int y, int z);
+		void generateRandom();
+		void toAllCubes(void (*func)(Map *, int, int, int));
+		void display();
+	private:
+		void _mallocData();
+		int m_w;
+		int m_h;
+		int m_z;
+		Cube *m_data;
+};
+
 
 #endif

@@ -51,6 +51,7 @@
   }
 
   void Cube::display(){
+    if (!m_textureId) return;
     glBindTexture(GL_TEXTURE_2D, m_textureId);
     for (int i = 0; i < 6; i++) {
       m_quads[i].display();

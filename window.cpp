@@ -17,7 +17,8 @@ float z = 5;
 
 Quad quad(0,0, 0, TOP);
 Cube cube(0, 0, 0, 2);
-Cube cube2(0, 1, 0, 1);
+Cube cube2(0, 1, -1, 1);
+Map map;
 
 GLuint loadBMP_custom(const char * imagepath) {
     // Data read from the header of the BMP file
@@ -82,6 +83,7 @@ void affichage(void)
 
     cube.display();
     cube2.display();
+    map.display();
 
     glutSwapBuffers();
     // /* On force l'affichage du resultat */
@@ -101,23 +103,23 @@ void clavier(unsigned char touche, int Ix, int Iy)
       case 'x': /* la touche 'q' quitte le programme */
         exit(0);
       case 'q': /* la touche 'q' quitte le programme */
-        cube.mooveX(-1);
+        x--;
         glutPostRedisplay();break;
       case 'd': /* la touche 'q' quitte le programme */
-        cube.mooveX(1);
+        x++;
         glutPostRedisplay();break;
       case 'z': /* la touche 'q' quitte le programme */
-        cube.mooveY(-1);
+        y++;
         glutPostRedisplay();break;
       case 's': /* la touche 'q' quitte le programme */
-        cube.mooveY(1);
+        y--;
         glutPostRedisplay();break;
       }
 }
 
 GLuint loadTexture() {
     loadBMP_custom("grass.bmp");
-    loadBMP_custom("grass2.bmp");
+    loadBMP_custom("stone.png");
     GLuint UVID = createAtributeBuffer(1, texture_UV, sizeof(texture_UV), 2);
     return UVID;
 }

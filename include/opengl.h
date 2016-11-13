@@ -16,8 +16,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 #include <iterator>
-#include "SOIL/SOIL.h" 
-
+#include <functional>
+#include <SOIL/SOIL.h> 
 #include <SDL2/SDL.h>
 #include <iostream>
 
