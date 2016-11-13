@@ -9,8 +9,8 @@ float x = 5;
 float y = 5;
 float z = 5;
 
+Quad quad(0,0, 0, TOP);
 Cube cube;
-Cube cube2;
 
 int createAtributeBuffer(int attributeId, const GLfloat *data, unsigned long size) {
     GLuint buffer;
@@ -53,9 +53,7 @@ void affichage(void)
     activeZBuffer();
     projection();
 
-    printf("%d\n", cube.getX());
     cube.display();
-    cube2.display();
 
     glutSwapBuffers();
     // /* On force l'affichage du resultat */
@@ -111,8 +109,6 @@ int main(int argc, char **argv)
     /* enregistrement des fonctions de rappels */
 
 
-
-    cube2.setPos(-1,1,-1);
     glutDisplayFunc(affichage);
     glutKeyboardFunc(clavier);
 
